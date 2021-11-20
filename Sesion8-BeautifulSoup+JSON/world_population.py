@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import json
 
 '''
-In this script BeautifulSoup is used to extract information from a website Wikipedia that contains 
+In this script BeautifulSoup is used to extract information from a Wikipedia's website that contains 
  a table with the world population per continent, and store it in a JSON file.
 '''
 
