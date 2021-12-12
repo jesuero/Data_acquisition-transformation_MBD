@@ -8,10 +8,12 @@ from requests.api import request
 # loading the api keys dictionary file
 with open("./keys.json", "r") as ifile:
     keys = json.load(ifile)
-
-# request to inventario de estaciones
-# searching in the response the field indicativo equals to MADRID, CIUDAD UNIVERSITARIA
-# the function returns the value of indicativo
+    
+'''
+request to inventario de estaciones
+    searching in the response the field indicativo equals to MADRID, CIUDAD UNIVERSITARIA
+    the function returns the value of indicativo
+'''
 def inventario_estaciones():
     url = "https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones"
     headers = {"api_key":keys["aemet_api_key"]}
@@ -25,9 +27,11 @@ def inventario_estaciones():
             idema = estacion["indicativo"]
     return idema
 
-# request to climatologias diarias endpoint
-# the field indicativo returned by the function parameter of the function inventario_estaciones is given as a parameter
-# returns the url with the climatological values for the selected date range and the selected station
+'''
+request to climatologias diarias endpoint
+    the field indicativo returned by the function parameter of the function inventario_estaciones is given as a parameter
+    returns the url with the climatological values for the selected date range and the selected station
+'''
 def climatologias_diarias(idema):
     url = "https://opendata.aemet.es/opendata/api/valores/climatologicos/diarios/datos/fechaini/{fechaIniStr}/fechafin/{fechaFinStr}/estacion/{idema}"
     url = url.format(fechaIniStr="2019-10-01T00:00:00UTC",
@@ -38,9 +42,11 @@ def climatologias_diarias(idema):
     url_response = response.json()["datos"]
     return url_response
 
-# request to the endpoint that gives the climatological values for all the stations in the selected date range
-# downloading all the average temperatures data from all the stations registered in August from 2011 to 2020
-# then computing the average anual temperature and returning an array with the average national temperature from each year  
+'''
+request to the endpoint that gives the climatological values for all the stations in the selected date range
+    downloading all the average temperatures data from all the stations registered in August from 2011 to 2020
+    then computing the average anual temperature and returning an array with the average national temperature from each year  
+'''
 def temperaturas_todas_estaciones():
     temperatura_nacional = []
     for year in range(11, 21):
